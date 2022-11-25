@@ -45,7 +45,12 @@
                             </Expander>
                         </DockPanel>
                         <DockPanel Background="BlueViolet" Grid.Row="0" Grid.Column="1">
-                            
+                            <GroupBox Header="Categorias Conseguidas">
+                                <ListBox>
+                                    
+                                </ListBox>
+
+                            </GroupBox>
                         </DockPanel>
                         <DockPanel Background="Coral" Grid.Row="1" Grid.Column="1"></DockPanel>
                     </Grid>
