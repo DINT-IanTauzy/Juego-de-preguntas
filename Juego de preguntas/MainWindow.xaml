@@ -1,0 +1,70 @@
+﻿<Window x:Class="Juego_de_preguntas.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Juego_de_preguntas"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid>
+            <TabControl>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Jugar"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions >
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="180"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <DockPanel Background="Aqua" Grid.Row="0" Grid.Column="0">
+                            <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
+                                <Image Name="Categoria"></Image>
+                                <TextBlock Text="Categoria" ></TextBlock>
+                            </StackPanel>
+                            <Image Name="PreguntaImagen"></Image>
+                        </DockPanel>
+                        <DockPanel Background="Beige" Grid.Row="1" Grid.Column="0" LastChildFill="False">
+                            <TextBlock Text="¿Texto de la pregunta?" DockPanel.Dock="Top"></TextBlock>
+                            <DockPanel DockPanel.Dock="Top">
+                                <TextBlock Text="Respuesta" DockPanel.Dock="Top"></TextBlock>
+                                <Button Content="Validar" DockPanel.Dock="Right"></Button>
+                                <TextBox></TextBox>
+                            </DockPanel>
+                            <Expander Margin="10" Header="Ver pista/Ocultar pista..." >
+                                <TextBlock TextWrapping="Wrap" FontSize="18">
+                                    Here we can have text which can be hidden/shown using the built-in functionality of the Expander control.
+                                </TextBlock>
+                            </Expander>
+                        </DockPanel>
+                        <DockPanel Background="BlueViolet" Grid.Row="0" Grid.Column="1">
+                            
+                        </DockPanel>
+                        <DockPanel Background="Coral" Grid.Row="1" Grid.Column="1"></DockPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Añadir Pregunta" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Gestionar Preguntas" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
