@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Juego_de_preguntas.VistaModelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,16 @@ namespace Juego_de_preguntas
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainWindowVM vm = new MainWindowVM();
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = vm;
+        }
+
+        private void Examinar_Click(object sender, RoutedEventArgs e)
+        {
+            vm.Examniar();
         }
     }
 }

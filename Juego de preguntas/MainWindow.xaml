@@ -71,23 +71,20 @@
                         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Margin="20">
                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                                 <TextBlock Text="Nivel de dificultad"/>
-                                <ComboBox Margin="10,0,0,0">
-                                    <ComboBoxItem Content="Facil" IsSelected="True"/>
-                                    <ComboBoxItem Content="Medio"/>
-                                    <ComboBoxItem Content="Dificil"/>
+                                <ComboBox Margin="10,0,0,0" ItemsSource="{Binding Path=Dificultades}" SelectedItem="{Binding Path=NuevaPregunta.Dificultad}">
+                                    
                                 </ComboBox>
                             </StackPanel>
                             <StackPanel DockPanel.Dock="Left" Margin="50,0,0,0" Orientation="Horizontal">
                                 <TextBlock Text="Categoria"/>
-                                <ComboBox Margin="10,0,0,0">
-
+                                <ComboBox Margin="10,0,0,0" ItemsSource="{Binding Path=Categorias}" SelectedItem="{Binding Path=NuevaPregunta.Categoria}">
                                 </ComboBox>
                             </StackPanel>
                         </DockPanel>
                         <DockPanel DockPanel.Dock="Right" LastChildFill="False">
                             <Button Content="Añadir Pregunta" DockPanel.Dock="Top"></Button>
                             <Button Content="Limpiar Formulario" DockPanel.Dock="Top"></Button>
-                            <Button Content="Examinar" DockPanel.Dock="Bottom"></Button>
+                            <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click"></Button>
                         </DockPanel>
                         <DockPanel LastChildFill="False" DockPanel.Dock="Bottom">
                             <DockPanel DockPanel.Dock="Top" >
@@ -100,10 +97,10 @@
                             </DockPanel>
                             <DockPanel DockPanel.Dock="Top">
                                 <TextBlock Text="Imagen" DockPanel.Dock="Left"/>
-                                <TextBox/>
+                                <TextBox Text="{Binding Path=NuevaPregunta.Imagen}"/>
                             </DockPanel>
                         </DockPanel>
-                        <Image Margin="20"/>
+                        <Image Margin="20" Source="{Binding Path=NuevaPregunta.Imagen}"/>
                     </DockPanel>
                 </TabItem>
                 <TabItem>
