@@ -8,6 +8,6 @@ namespace Juego_de_preguntas.Servicios
 {
     class ServicioBlueStorage
     {
-
+        //coment de prueba
     }
 }
