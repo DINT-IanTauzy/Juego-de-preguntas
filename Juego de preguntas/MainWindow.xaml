@@ -77,23 +77,23 @@
                             </StackPanel>
                             <StackPanel DockPanel.Dock="Left" Margin="50,0,0,0" Orientation="Horizontal">
                                 <TextBlock Text="Categoria"/>
-                                <ComboBox Margin="10,0,0,0" ItemsSource="{Binding Path=Categorias}" SelectedItem="{Binding Path=NuevaPregunta.Categoria}">
-                                </ComboBox>
+                                <ComboBox Margin="10,0,0,0" ItemsSource="{Binding Path=Categorias}" SelectedItem="{Binding Path=NuevaPregunta.Categoria}"/>
+
                             </StackPanel>
                         </DockPanel>
                         <DockPanel DockPanel.Dock="Right" LastChildFill="False">
-                            <Button Content="Añadir Pregunta" DockPanel.Dock="Top"></Button>
-                            <Button Content="Limpiar Formulario" DockPanel.Dock="Top"></Button>
+                            <Button Content="Añadir Pregunta" DockPanel.Dock="Top" Click="AñadirPregunta_Click"></Button>
+                            <Button Content="Limpiar Formulario" DockPanel.Dock="Top" Click="LimpiarFormulario_Click"></Button>
                             <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click"></Button>
                         </DockPanel>
                         <DockPanel LastChildFill="False" DockPanel.Dock="Bottom">
                             <DockPanel DockPanel.Dock="Top" >
                                 <TextBlock Text="Pregunta" DockPanel.Dock="Left"/>
-                                <TextBox/>
+                                <TextBox Text="{Binding Path=NuevaPregunta.TextoPregunta}"/>
                             </DockPanel>
                             <DockPanel DockPanel.Dock="Top">
                                 <TextBlock Text="Respuesta" DockPanel.Dock="Left"/>
-                                <TextBox/>
+                                <TextBox Text="{Binding Path=NuevaPregunta.Respuesta}"/>
                             </DockPanel>
                             <DockPanel DockPanel.Dock="Top">
                                 <TextBlock Text="Imagen" DockPanel.Dock="Left"/>

@@ -19,19 +19,22 @@ namespace Juego_de_preguntas.Servicios
         public string OpenFileDialog()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            openFileDialog.Filter = "Image files |*.png;*.jpeg|" + "JSON files |*.json";
             openFileDialog.InitialDirectory = @"c:\temp\";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (openFileDialog.ShowDialog() == true)
             {
-                   return Path.GetFileName(openFileDialog.FileName);
+                   return openFileDialog.FileName;
             }
             return null;
         }
 
-        public void SaveFileDialog()
+        public void SaveFileDialog(string ruta)
         {
-            
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (saveFileDialog.ShowDialog() == true)
+                File.WriteAllText(saveFileDialog.FileName, ruta);
         }
     }
 }

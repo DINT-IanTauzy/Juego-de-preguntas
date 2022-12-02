@@ -87,7 +87,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Servicios\ServicioBlueStorage.cs" />
     <Compile Include="Servicios\ServicioDialogos.cs" />
+    <Compile Include="Servicios\ServicioJson.cs" />
     <Compile Include="VistaModelo\MainWindowVM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

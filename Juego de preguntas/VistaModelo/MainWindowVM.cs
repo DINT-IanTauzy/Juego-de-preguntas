@@ -71,6 +71,7 @@ namespace Juego_de_preguntas.VistaModelo
 
         public MainWindowVM()
         {
+            listaPreguntas = new ObservableCollection<Pregunta>();
             serviceDialog = new ServicioDialogos();
             Categorias = new ObservableCollection<string> { "Armas", "Personajes", "Habilidades", "Mapas" };
             Dificultades = new ObservableCollection<string> { "Facil", "Medio", "Dificil" };
@@ -79,9 +80,17 @@ namespace Juego_de_preguntas.VistaModelo
 
         public void AñadirPregunta()
         {
+            
+
+
             listaPreguntas.Add(NuevaPregunta);
 
-            nuevaPregunta = new Pregunta();
+            NuevaPregunta = new Pregunta();
+        }
+
+        public void LimpiarFormulario()
+        {
+            NuevaPregunta = null;
         }
 
         private ServicioDialogos serviceDialog;

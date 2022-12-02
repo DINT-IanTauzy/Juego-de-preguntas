@@ -32,5 +32,15 @@ namespace Juego_de_preguntas
         {
             vm.Examniar();
         }
+
+        private void AñadirPregunta_Click(object sender, RoutedEventArgs e)
+        {
+            vm.AñadirPregunta();
+        }
+
+        private void LimpiarFormulario_Click(object sender, RoutedEventArgs e)
+        {
+            vm.LimpiarFormulario();
+        }
     }
 }
