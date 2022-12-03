@@ -30,7 +30,8 @@ namespace Juego_de_preguntas
 
         private void Examinar_Click(object sender, RoutedEventArgs e)
         {
-            vm.Examniar();
+            Button boton = (Button)sender;
+            vm.Examniar(boton.Tag.ToString());
         }
 
         private void AñadirPregunta_Click(object sender, RoutedEventArgs e)

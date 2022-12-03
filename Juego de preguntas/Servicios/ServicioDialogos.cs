@@ -26,7 +26,7 @@ namespace Juego_de_preguntas.Servicios
             {
                    return openFileDialog.FileName;
             }
-            return null;
+            return "";
         }
 
         public void SaveFileDialog(string ruta)

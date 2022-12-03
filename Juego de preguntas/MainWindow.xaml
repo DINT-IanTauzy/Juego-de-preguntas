@@ -96,7 +96,7 @@
                         <DockPanel DockPanel.Dock="Right" LastChildFill="False">
                             <Button Content="Añadir Pregunta" DockPanel.Dock="Top" Click="AñadirPregunta_Click"></Button>
                             <Button Content="Limpiar Formulario" DockPanel.Dock="Top" Click="LimpiarFormulario_Click"></Button>
-                            <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click"></Button>
+                            <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click" Tag="NuevaPregunta"></Button>
                         </DockPanel>
                         <DockPanel LastChildFill="False" DockPanel.Dock="Bottom">
                             <DockPanel DockPanel.Dock="Top" >
@@ -140,7 +140,7 @@
                             <Button Content="Cargar de JSON" DockPanel.Dock="Top"></Button>
                             <Button Content="Guardar en JSON" DockPanel.Dock="Top"></Button>
                             <Button Content="Eliminar Pregunta" DockPanel.Dock="Top"></Button>
-                            <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click"></Button>
+                            <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click" Tag="GestionarPregunta"></Button>
                         </DockPanel>
                         <DockPanel LastChildFill="False" DockPanel.Dock="Bottom">
                             <DockPanel DockPanel.Dock="Top" >

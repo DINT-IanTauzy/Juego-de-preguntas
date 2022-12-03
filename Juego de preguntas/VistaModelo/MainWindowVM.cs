@@ -91,10 +91,7 @@ namespace Juego_de_preguntas.VistaModelo
         public void AñadirPregunta()
         {
 
-            //NuevaPregunta.Imagen = urlImagen;
-
             ListaPreguntas.Add(NuevaPregunta);
-
             NuevaPregunta = new Pregunta();
         }
 
@@ -105,12 +102,16 @@ namespace Juego_de_preguntas.VistaModelo
 
         
 
-        public void Examniar()
+        public void Examniar(string tipo)
         {
-            
-            NuevaPregunta.Imagen = ServicioAzure.AlmacenarImagenEnLaNube(ServiceDialog.OpenFileDialog());
-
-            //PreguntaSeleccionada.Imagen = servicioAzure.AlmacenarImagenEnLaNube(ServiceDialog.OpenFileDialog());
+            string url = ServiceDialog.OpenFileDialog();
+            if(tipo == "NuevaPregunta")
+            {
+                NuevaPregunta.Imagen = ServicioAzure.AlmacenarImagenEnLaNube(url);
+            } else if(tipo == "GestionarPregunta")
+            {
+                PreguntaSeleccionada.Imagen = servicioAzure.AlmacenarImagenEnLaNube(url);
+            }
         }
     }
 }

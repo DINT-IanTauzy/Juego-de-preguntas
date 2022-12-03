@@ -10,7 +10,7 @@ namespace Juego_de_preguntas.Servicios
 {
     class ServicioAzureBlobStorage
     {
-        private readonly string cadenaConexion = "DefaultEndpointsProtocol=https;AccountName=trivialian;AccountKey=Kv7OsdziSGsW7qGZxfQgJswiqT/BhhqmCbrumbD67yohiH8upcFb3/+RSeK8Mxk8zfffITr0xtDp+AStJuSB7g==;EndpointSuffix=core.windows.net";
+        private const string cadenaConexion = "DefaultEndpointsProtocol=https;AccountName=trivialian;AccountKey=Kv7OsdziSGsW7qGZxfQgJswiqT/BhhqmCbrumbD67yohiH8upcFb3/+RSeK8Mxk8zfffITr0xtDp+AStJuSB7g==;EndpointSuffix=core.windows.net";
         private readonly string nombreContenedorBlobs = "trivial";
         
         public string AlmacenarImagenEnLaNube(string rutaImagen)
