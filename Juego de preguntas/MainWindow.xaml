@@ -6,6 +6,18 @@
         xmlns:local="clr-namespace:Juego_de_preguntas"
         mc:Ignorable="d"
         Title="Juego de Preguntas" Height="450" Width="800">
+    <Window.Resources>
+        
+        <DataTemplate x:Key="plantillaPreguntas">
+            <DockPanel LastChildFill="False" Background="AliceBlue" Width="200" Height="200" Margin="5">
+                <Viewbox DockPanel.Dock="Bottom" Height="25">
+                    <TextBlock Text="{Binding Path=TextoPregunta}"/>
+                </Viewbox>
+                <Image Source="{Binding Path=Imagen}"/>
+            </DockPanel>
+        </DataTemplate>
+        
+    </Window.Resources>
     <Grid>
         <Grid>
             <TabControl>
@@ -97,7 +109,7 @@
                             </DockPanel>
                             <DockPanel DockPanel.Dock="Top">
                                 <TextBlock Text="Imagen" DockPanel.Dock="Left"/>
-                                <TextBox Text="{Binding Path=NuevaPregunta.Imagen}"/>
+                                <TextBox Text="{Binding Path=NuevaPregunta.Imagen}" IsReadOnly="True"/>
                             </DockPanel>
                         </DockPanel>
                         <Image Margin="20" Source="{Binding Path=NuevaPregunta.Imagen}"/>
@@ -113,15 +125,13 @@
                         <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" Margin="20">
                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                                 <TextBlock Text="Nivel de dificultad"/>
-                                <ComboBox Margin="10,0,0,0">
-                                    <ComboBoxItem Content="Facil" IsSelected="True"/>
-                                    <ComboBoxItem Content="Medio"/>
-                                    <ComboBoxItem Content="Dificil"/>
+                                <ComboBox Margin="10,0,0,0" Width="150" ItemsSource="{Binding Path=Dificultades}" SelectedItem="{Binding Path=PreguntaSeleccionada.Dificultad, UpdateSourceTrigger=PropertyChanged}">
+                                    
                                 </ComboBox>
                             </StackPanel>
                             <StackPanel DockPanel.Dock="Left" Margin="50,0,0,0" Orientation="Horizontal">
                                 <TextBlock Text="Categoria"/>
-                                <ComboBox Margin="10,0,0,0">
+                                <ComboBox Margin="10,0,0,0" Width="150" ItemsSource="{Binding Path=Categorias}" SelectedItem="{Binding Path=PreguntaSeleccionada.Categoria, UpdateSourceTrigger=PropertyChanged}">
 
                                 </ComboBox>
                             </StackPanel>
@@ -130,24 +140,28 @@
                             <Button Content="Cargar de JSON" DockPanel.Dock="Top"></Button>
                             <Button Content="Guardar en JSON" DockPanel.Dock="Top"></Button>
                             <Button Content="Eliminar Pregunta" DockPanel.Dock="Top"></Button>
-                            <Button Content="Examinar" DockPanel.Dock="Bottom"></Button>
+                            <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click"></Button>
                         </DockPanel>
                         <DockPanel LastChildFill="False" DockPanel.Dock="Bottom">
                             <DockPanel DockPanel.Dock="Top" >
                                 <TextBlock Text="Pregunta" DockPanel.Dock="Left"/>
-                                <TextBox/>
+                                <TextBox Text="{Binding Path=PreguntaSeleccionada.TextoPregunta , UpdateSourceTrigger=PropertyChanged}"/>
                             </DockPanel>
                             <DockPanel DockPanel.Dock="Top">
                                 <TextBlock Text="Respuesta" DockPanel.Dock="Left"/>
-                                <TextBox/>
+                                <TextBox Text="{Binding Path=PreguntaSeleccionada.Respuesta, UpdateSourceTrigger=PropertyChanged}"/>
                             </DockPanel>
                             <DockPanel DockPanel.Dock="Top">
                                 <TextBlock Text="Imagen" DockPanel.Dock="Left"/>
-                                <TextBox/>
+                                <TextBox Text="{Binding Path=PreguntaSeleccionada.Imagen, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                             </DockPanel>
                         </DockPanel>
-                        <ListBox Margin="20" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            
+                        <ListBox Margin="20" ItemsSource="{Binding Path=ListaPreguntas}" SelectedItem="{Binding Path=PreguntaSeleccionada}" ItemTemplate="{StaticResource plantillaPreguntas}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
                         </ListBox>
                     </DockPanel>
                 </TabItem>

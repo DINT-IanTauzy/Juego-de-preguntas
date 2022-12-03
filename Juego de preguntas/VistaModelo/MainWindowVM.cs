@@ -12,6 +12,8 @@ namespace Juego_de_preguntas.VistaModelo
 {
     class MainWindowVM : ObservableObject
     {
+        private string urlImagen;
+        
         private Pregunta pregunta;
 
         public Pregunta Pregunta
@@ -62,17 +64,25 @@ namespace Juego_de_preguntas.VistaModelo
 
         private ObservableCollection<Pregunta> listaPreguntas;
 
-        public ObservableCollection<Pregunta> ListasPreguntas
+        public ObservableCollection<Pregunta> ListaPreguntas
         {
             get { return listaPreguntas; }
             set { SetProperty(ref listaPreguntas, value); }
         }
 
+        private ServicioDialogos serviceDialog;
+        public ServicioDialogos ServiceDialog { get => serviceDialog; set { SetProperty(ref serviceDialog, value); } }
+
+        private ServicioAzureBlobStorage servicioAzure;
+
+        public ServicioAzureBlobStorage ServicioAzure { get => servicioAzure; set { SetProperty(ref servicioAzure, value); } }
 
         public MainWindowVM()
         {
-            listaPreguntas = new ObservableCollection<Pregunta>();
-            serviceDialog = new ServicioDialogos();
+            urlImagen = null;
+            ListaPreguntas = new ObservableCollection<Pregunta>();
+            ServiceDialog = new ServicioDialogos();
+            ServicioAzure = new ServicioAzureBlobStorage();
             Categorias = new ObservableCollection<string> { "Armas", "Personajes", "Habilidades", "Mapas" };
             Dificultades = new ObservableCollection<string> { "Facil", "Medio", "Dificil" };
             NuevaPregunta = new Pregunta();
@@ -80,10 +90,10 @@ namespace Juego_de_preguntas.VistaModelo
 
         public void AñadirPregunta()
         {
-            
 
+            //NuevaPregunta.Imagen = urlImagen;
 
-            listaPreguntas.Add(NuevaPregunta);
+            ListaPreguntas.Add(NuevaPregunta);
 
             NuevaPregunta = new Pregunta();
         }
@@ -93,11 +103,14 @@ namespace Juego_de_preguntas.VistaModelo
             NuevaPregunta = null;
         }
 
-        private ServicioDialogos serviceDialog;
+        
 
         public void Examniar()
         {
-            NuevaPregunta.Imagen =  serviceDialog.OpenFileDialog();
+            
+            NuevaPregunta.Imagen = ServicioAzure.AlmacenarImagenEnLaNube(ServiceDialog.OpenFileDialog());
+
+            //PreguntaSeleccionada.Imagen = servicioAzure.AlmacenarImagenEnLaNube(ServiceDialog.OpenFileDialog());
         }
     }
 }
