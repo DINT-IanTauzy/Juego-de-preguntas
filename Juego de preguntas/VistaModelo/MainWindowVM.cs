@@ -11,9 +11,7 @@ using System.Threading.Tasks;
 namespace Juego_de_preguntas.VistaModelo
 {
     class MainWindowVM : ObservableObject
-    {
-        private string urlImagen;
-        
+    {   
         private Pregunta pregunta;
 
         public Pregunta Pregunta
@@ -77,12 +75,16 @@ namespace Juego_de_preguntas.VistaModelo
 
         public ServicioAzureBlobStorage ServicioAzure { get => servicioAzure; set { SetProperty(ref servicioAzure, value); } }
 
+        private ServicioJson servicioJson;
+
+        public ServicioJson ServicioJson { get => servicioJson; set { SetProperty(ref servicioJson, value); } }
+
         public MainWindowVM()
         {
-            urlImagen = null;
             ListaPreguntas = new ObservableCollection<Pregunta>();
             ServiceDialog = new ServicioDialogos();
             ServicioAzure = new ServicioAzureBlobStorage();
+            ServicioJson = new ServicioJson();
             Categorias = new ObservableCollection<string> { "Armas", "Personajes", "Habilidades", "Mapas" };
             Dificultades = new ObservableCollection<string> { "Facil", "Medio", "Dificil" };
             NuevaPregunta = new Pregunta();
@@ -90,7 +92,6 @@ namespace Juego_de_preguntas.VistaModelo
 
         public void AñadirPregunta()
         {
-
             ListaPreguntas.Add(NuevaPregunta);
             NuevaPregunta = new Pregunta();
         }
@@ -102,16 +103,30 @@ namespace Juego_de_preguntas.VistaModelo
 
         
 
-        public void Examniar(string tipo)
+        public void Examniar_NuevaPregunta()
         {
-            string url = ServiceDialog.OpenFileDialog();
-            if(tipo == "NuevaPregunta")
-            {
-                NuevaPregunta.Imagen = ServicioAzure.AlmacenarImagenEnLaNube(url);
-            } else if(tipo == "GestionarPregunta")
-            {
-                PreguntaSeleccionada.Imagen = servicioAzure.AlmacenarImagenEnLaNube(url);
-            }
+           NuevaPregunta.Imagen = ServicioAzure.AlmacenarImagenEnLaNube(ServiceDialog.OpenFileDialog());  
+        }
+
+        public void Examinar_GestionarPregunta()
+        {
+            PreguntaSeleccionada.Imagen = ServicioAzure.AlmacenarImagenEnLaNube(ServiceDialog.OpenFileDialog());
+        }
+
+        public void EliminarPregunta()
+        {
+            ListaPreguntas.Remove(PreguntaSeleccionada);
+        }
+
+        public void CargarJson()
+        {
+            ListaPreguntas = ServicioJson.LecturaJSON(ServiceDialog.OpenFileDialog());
+        }
+
+        public void GuardarJson()
+        {
+            string json = ServicioJson.EscrituraJSON(ListaPreguntas);
+            ServiceDialog.SaveFileDialog(json);
         }
     }
 }

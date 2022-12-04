@@ -31,7 +31,10 @@ namespace Juego_de_preguntas
         private void Examinar_Click(object sender, RoutedEventArgs e)
         {
             Button boton = (Button)sender;
-            vm.Examniar(boton.Tag.ToString());
+            if (boton.Tag.ToString() == "NuevaPregunta")
+                vm.Examniar_NuevaPregunta();
+            else if (boton.Tag.ToString() == "GestionarPregunta")
+                vm.Examinar_GestionarPregunta();
         }
 
         private void AñadirPregunta_Click(object sender, RoutedEventArgs e)
@@ -43,5 +46,23 @@ namespace Juego_de_preguntas
         {
             vm.LimpiarFormulario();
         }
+        
+
+        private void EliminarPregunta_Click(object sender, RoutedEventArgs e)
+        {
+            vm.EliminarPregunta();
+        }
+
+        private void GuardarJson_Click(object sender, RoutedEventArgs e)
+        {
+            vm.GuardarJson();
+        }
+        
+
+        private void CargarJson_Click(object sender, RoutedEventArgs e)
+        {
+            vm.CargarJson();
+        }
+
     }
 }

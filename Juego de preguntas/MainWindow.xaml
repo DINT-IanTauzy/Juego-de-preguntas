@@ -137,9 +137,9 @@
                             </StackPanel>
                         </DockPanel>
                         <DockPanel DockPanel.Dock="Right" LastChildFill="False">
-                            <Button Content="Cargar de JSON" DockPanel.Dock="Top"></Button>
-                            <Button Content="Guardar en JSON" DockPanel.Dock="Top"></Button>
-                            <Button Content="Eliminar Pregunta" DockPanel.Dock="Top"></Button>
+                            <Button Content="Cargar de JSON" DockPanel.Dock="Top" Click="CargarJson_Click"></Button>
+                            <Button Content="Guardar en JSON" DockPanel.Dock="Top" Click="GuardarJson_Click"></Button>
+                            <Button Content="Eliminar Pregunta" DockPanel.Dock="Top" Click="EliminarPregunta_Click"></Button>
                             <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click" Tag="GestionarPregunta"></Button>
                         </DockPanel>
                         <DockPanel LastChildFill="False" DockPanel.Dock="Bottom">

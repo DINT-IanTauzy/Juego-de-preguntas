@@ -29,12 +29,14 @@ namespace Juego_de_preguntas.Servicios
             return "";
         }
 
-        public void SaveFileDialog(string ruta)
+        public void SaveFileDialog(string json)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "JSON files |*.json";
+            saveFileDialog.InitialDirectory = @"c:\temp\";
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (saveFileDialog.ShowDialog() == true)
-                File.WriteAllText(saveFileDialog.FileName, ruta);
+                File.WriteAllText(saveFileDialog.FileName, json);
         }
     }
 }
