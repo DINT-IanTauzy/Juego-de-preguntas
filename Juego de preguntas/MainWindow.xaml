@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Juego_de_preguntas"
         mc:Ignorable="d"
-        Title="Juego de Preguntas" Height="450" Width="800">
+        Title="Juego de Preguntas" Height="450" Width="800" Icon="./Recursos/Icon/valorant.ico">
     <Window.Resources>
         
         <DataTemplate x:Key="plantillaPreguntas">
@@ -41,34 +41,38 @@
                                 <Image Name="Categoria"></Image>
                                 <TextBlock Text="Categoria" ></TextBlock>
                             </StackPanel>
-                            <Image Name="PreguntaImagen"></Image>
+                            <Image Name="PreguntaImagen" Source="{Binding Path=PreguntaActual.Imagen}"></Image>
                         </DockPanel>
                         <DockPanel  Grid.Row="1" Grid.Column="0" LastChildFill="False">
-                            <TextBlock Text="¿Texto de la pregunta?" DockPanel.Dock="Top"></TextBlock>
+                            <TextBlock Text="{Binding Path=PreguntaActual.TextoPregunta}" DockPanel.Dock="Top"></TextBlock>
                             <DockPanel DockPanel.Dock="Top">
                                 <TextBlock Text="Respuesta" DockPanel.Dock="Top"></TextBlock>
                                 <Button Content="Validar" DockPanel.Dock="Right"></Button>
                                 <TextBox></TextBox>
                             </DockPanel>
                             <Expander Margin="10" Header="Ver pista/Ocultar pista..." >
-                                <TextBlock TextWrapping="Wrap" FontSize="18">
-                                    Here we can have text which can be hidden/shown using the built-in functionality of the Expander control.
-                                </TextBlock>
+                                <TextBlock TextWrapping="Wrap" FontSize="15" Text="{Binding Path=PreguntaActual.Respuesta}"/>
+
+
                             </Expander>
                         </DockPanel>
                         <DockPanel Grid.Row="0" Grid.Column="1">
                             <GroupBox Header="Categorias Conseguidas">
-                                <ListBox>
-
-                                </ListBox>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    
+                                </Grid>
                             </GroupBox>
                         </DockPanel>
                         <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Grid.Row="1" Grid.Column="1" Margin="15">
-                            <ComboBox>
-                                <ComboBoxItem Content="Facil"></ComboBoxItem>
-                                <ComboBoxItem Content="Medio"></ComboBoxItem>
-                                <ComboBoxItem Content="Dificil"></ComboBoxItem>
-                            </ComboBox>
+                            <ComboBox ItemsSource="{Binding Path=Dificultades}" SelectedItem="{Binding Path=NuevaPregunta.Dificultad}"/>
                             <Button Content="Nueva Partida" Margin="20"></Button>
                         </StackPanel>
                     </Grid>

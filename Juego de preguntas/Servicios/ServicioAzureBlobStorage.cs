@@ -20,7 +20,10 @@ namespace Juego_de_preguntas.Servicios
 
             Stream streamImagen = File.OpenRead(rutaImagen);
             string nombreImagen = Path.GetFileName(rutaImagen);
-            clienteContenedor.UploadBlob(nombreImagen, streamImagen);
+
+            if (!clienteContenedor.GetBlobClient(nombreImagen).Exists())
+                clienteContenedor.UploadBlob(nombreImagen, streamImagen);
+            
 
             var clienteBlobImagen = clienteContenedor.GetBlobClient(nombreImagen);
             return clienteBlobImagen.Uri.AbsoluteUri;

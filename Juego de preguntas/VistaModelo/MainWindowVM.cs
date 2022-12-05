@@ -68,6 +68,17 @@ namespace Juego_de_preguntas.VistaModelo
             set { SetProperty(ref listaPreguntas, value); }
         }
 
+        private Pregunta preguntaActual;
+
+        public Pregunta PreguntaActual
+        {
+            get { return preguntaActual; }
+            set { SetProperty(ref preguntaActual, value); }
+        }
+
+
+
+
         private ServicioDialogos serviceDialog;
         public ServicioDialogos ServiceDialog { get => serviceDialog; set { SetProperty(ref serviceDialog, value); } }
 
@@ -81,6 +92,7 @@ namespace Juego_de_preguntas.VistaModelo
 
         public MainWindowVM()
         {
+            PreguntaActual = new Pregunta();
             ListaPreguntas = new ObservableCollection<Pregunta>();
             ServiceDialog = new ServicioDialogos();
             ServicioAzure = new ServicioAzureBlobStorage();
@@ -125,8 +137,9 @@ namespace Juego_de_preguntas.VistaModelo
 
         public void GuardarJson()
         {
-            string json = ServicioJson.EscrituraJSON(ListaPreguntas);
-            ServiceDialog.SaveFileDialog(json);
+            string ruta = ServiceDialog.SaveFileDialog();
+            ServicioJson.EscrituraJSON(ruta, ListaPreguntas);
+            //ServiceDialog.SaveFileDialog(json);
         }
     }
 }

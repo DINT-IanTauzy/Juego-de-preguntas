@@ -12,11 +12,11 @@ namespace Juego_de_preguntas.Servicios
 {
     class ServicioJson
     {
-        public string EscrituraJSON(ObservableCollection<Pregunta> lista)
+        public void EscrituraJSON(string ruta, ObservableCollection<Pregunta> lista)
         {
             string preguntaJson = JsonConvert.SerializeObject(lista);
-            //File.WriteAllText("preguntas.json", preguntaJson);
-            return preguntaJson;
+            File.WriteAllText(ruta, preguntaJson);
+            //return preguntaJson;
         }
 
 
