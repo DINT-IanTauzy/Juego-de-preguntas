@@ -19,7 +19,7 @@ namespace Juego_de_preguntas.Servicios
         public string OpenFileDialog()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files |*.png;*.jpeg|" + "JSON files |*.json";
+            openFileDialog.Filter = "Image files |*.png;*.jpeg;*.jpg|" + "JSON files |*.json";
             openFileDialog.InitialDirectory = @"c:\temp\";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (openFileDialog.ShowDialog() == true)

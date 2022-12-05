@@ -11,7 +11,9 @@ using System.Threading.Tasks;
 namespace Juego_de_preguntas.VistaModelo
 {
     class MainWindowVM : ObservableObject
-    {   
+    {
+
+        private const string noImage = "https://trivialian.blob.core.windows.net/trivial/no-image.png";
         private Pregunta pregunta;
 
         public Pregunta Pregunta
@@ -104,6 +106,8 @@ namespace Juego_de_preguntas.VistaModelo
 
         public void AñadirPregunta()
         {
+            if (NuevaPregunta.Imagen is null)
+                NuevaPregunta.Imagen = noImage;
             ListaPreguntas.Add(NuevaPregunta);
             NuevaPregunta = new Pregunta();
         }
@@ -113,11 +117,10 @@ namespace Juego_de_preguntas.VistaModelo
             NuevaPregunta = null;
         }
 
-        
 
         public void Examniar_NuevaPregunta()
         {
-           NuevaPregunta.Imagen = ServicioAzure.AlmacenarImagenEnLaNube(ServiceDialog.OpenFileDialog());  
+            NuevaPregunta.Imagen = ServicioAzure.AlmacenarImagenEnLaNube(ServiceDialog.OpenFileDialog());
         }
 
         public void Examinar_GestionarPregunta()
@@ -139,7 +142,8 @@ namespace Juego_de_preguntas.VistaModelo
         {
             string ruta = ServiceDialog.SaveFileDialog();
             ServicioJson.EscrituraJSON(ruta, ListaPreguntas);
-            //ServiceDialog.SaveFileDialog(json);
         }
+
+        
     }
 }

@@ -4,17 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Juego_de_preguntas"
+        xmlns:convertidores="clr-namespace:Juego_de_preguntas.Convertidores"
         mc:Ignorable="d"
-        Title="Juego de Preguntas" Height="450" Width="800" Icon="./Recursos/Icon/valorant.ico">
+        Title="Juego de Preguntas" Height="600" Width="1000" Icon="./Recursos/Icon/valorant.ico">
     <Window.Resources>
-        
+        <convertidores:ConvertidorDificultad x:Key="ConvertidorDificultad"/>
         <DataTemplate x:Key="plantillaPreguntas">
-            <DockPanel LastChildFill="False" Background="AliceBlue" Width="200" Height="200" Margin="5">
+            <Border BorderBrush="Black" BorderThickness="2" Padding="10" Margin="5" Background="AliceBlue">
+                <Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+            <DockPanel Width="170" Height="170">
                 <Viewbox DockPanel.Dock="Bottom" Height="25">
                     <TextBlock Text="{Binding Path=TextoPregunta}"/>
                 </Viewbox>
-                <Image Source="{Binding Path=Imagen}"/>
+                    <DockPanel LastChildFill="False" DockPanel.Dock="Top">
+                        <Image DockPanel.Dock="Right" Source="{Binding Path=Dificultad, Converter={StaticResource ConvertidorDificultad}}" Width="35" Height="25"/>
+                        <Image DockPanel.Dock="Left"/>
+                    </DockPanel>
+                <Image Source="{Binding Path=Imagen}" HorizontalAlignment="Center"/>
             </DockPanel>
+            </Border>
         </DataTemplate>
         
     </Window.Resources>

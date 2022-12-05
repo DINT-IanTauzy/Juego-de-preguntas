@@ -157,6 +157,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Convertidores\ConvertidorDificultad.cs" />
     <Compile Include="Servicios\ServicioAzureBlobStorage.cs" />
     <Compile Include="Servicios\ServicioDialogos.cs" />
     <Compile Include="Servicios\ServicioJson.cs" />
@@ -203,9 +204,29 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Recursos\Levels\easy-level.png" />
+    <Resource Include="Recursos\Levels\hard-level.png" />
+    <Resource Include="Recursos\Levels\medium-level.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Icon\valorant.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Levels\battery-no-level.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Recursos\Categorias\armas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Categorias\habilidades.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Categorias\mapa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Categorias\personajes.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\CommunityToolkit.Mvvm.8.0.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets" Condition="Exists('..\packages\CommunityToolkit.Mvvm.8.0.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" />
