@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Juego_de_preguntas"
         xmlns:convertidores="clr-namespace:Juego_de_preguntas.Convertidores"
         mc:Ignorable="d"
-        Title="Juego de Preguntas" Height="600" Width="1000" Icon="./Recursos/Icon/valorant.ico">
+        Title="Juego de Preguntas" Height="700" Width="1000" Icon="./Recursos/Icon/valorant.ico">
     <Window.Resources>
         <convertidores:ConvertidorDificultad x:Key="ConvertidorDificultad"/>
         <convertidores:ConvertidorCategoria x:Key="ConvertidorCategoria"/>
@@ -64,7 +64,7 @@
         </Style>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Width" Value="120"/>
-            <Setter Property="Margin" Value="10,6"/>
+            <Setter Property="Margin" Value="10,8"/>
             <Setter Property="Height" Value="25"/>
         </Style>
         <Style TargetType="{x:Type Border}" x:Key="BorderButton">
