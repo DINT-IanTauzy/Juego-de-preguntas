@@ -167,7 +167,7 @@
                     </TabItem.Header>
                     <DockPanel>
                         <!--Lado derecho-->
-                        <Grid DockPanel.Dock="Right" Style="{StaticResource PanelesDerecha}" Background="#FFE7E7DF">
+                        <Grid DockPanel.Dock="Right" Style="{StaticResource PanelesDerecha}" Background="#FFE8E8E0">
                             <Image Source="./Recursos/FondoForm/Phoenix.jpg" />
                             <DockPanel  LastChildFill="False" >
                                 <Button Content="Añadir Pregunta" DockPanel.Dock="Top" Click="AñadirPregunta_Click"></Button>
