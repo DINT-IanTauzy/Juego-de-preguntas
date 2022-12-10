@@ -76,8 +76,11 @@
             <Setter Property="Background" Value="#FFFD8691"/>
         </Style>
         <Style TargetType="{x:Type Grid}" x:Key="PanelesDerecha">
-            <Setter Property="Width" Value="180"/>
+            <Setter Property="Width" Value="200"/>
             <Setter Property="Margin" Value="15"/>
+        </Style>
+        <Style TargetType="{x:Type Image}" x:Key="ImagenesCategorias">
+            <Setter Property="Margin" Value="10"/>
         </Style>
         <DataTemplate x:Key="plantillaPreguntas">
             <Border BorderBrush="Black" BorderThickness="2" Padding="10" Margin="5" Background="AliceBlue">
@@ -125,12 +128,12 @@
                             </StackPanel>
                             <Image Name="PreguntaImagen" Source="{Binding Path=PreguntaActual.Imagen}"></Image>
                         </DockPanel>
-                        <DockPanel  Grid.Row="1" Grid.Column="0" LastChildFill="False">
+                        <DockPanel  Grid.Row="1" Grid.Column="0" LastChildFill="False" >
                             <TextBlock Text="{Binding Path=PreguntaActual.TextoPregunta}" DockPanel.Dock="Top"></TextBlock>
-                            <DockPanel DockPanel.Dock="Top">
+                            <DockPanel DockPanel.Dock="Top" Margin="5">
                                 <TextBlock Text="Respuesta" DockPanel.Dock="Top"></TextBlock>
                                 <Button Content="Validar" DockPanel.Dock="Right"></Button>
-                                <TextBox></TextBox>
+                                <TextBox Margin="5,0"></TextBox>
                             </DockPanel>
                             <Expander Margin="10" Header="Ver pista/Ocultar pista..." >
                                 <TextBlock TextWrapping="Wrap" FontSize="15" Text="{Binding Path=PreguntaActual.Respuesta}"/>
@@ -149,7 +152,10 @@
                                         <RowDefinition></RowDefinition>
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    
+                                    <Image Source="./Recursos/Categorias/armas.png" Grid.Row="0" Grid.Column="0" Style="{StaticResource ImagenesCategorias}"/>
+                                    <Image Source="./Recursos/Categorias/habilidades.png" Grid.Row="0" Grid.Column="1" Style="{StaticResource ImagenesCategorias}"/>
+                                    <Image Source="./Recursos/Categorias/mapa.png" Grid.Row="1" Grid.Column="0" Style="{StaticResource ImagenesCategorias}"/>
+                                    <Image Source="./Recursos/Categorias/personajes.png" Grid.Row="1" Grid.Column="1" Style="{StaticResource ImagenesCategorias}"/>
                                 </Grid>
                             </GroupBox>
                         </DockPanel>
