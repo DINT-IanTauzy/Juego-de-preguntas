@@ -64,5 +64,15 @@ namespace Juego_de_preguntas
             vm.CargarJson();
         }
 
+        private void NuevaPartida_Click(object sender, RoutedEventArgs e)
+        {
+            vm.NuevaPartida();
+        }
+
+        private void Validar_Click(object sender, RoutedEventArgs e)
+        {
+            vm.Validar();
+        }
+
     }
 }

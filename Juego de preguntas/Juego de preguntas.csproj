@@ -159,7 +159,7 @@
     </ApplicationDefinition>
     <Compile Include="Convertidores\ConvertidorCategoria.cs" />
     <Compile Include="Convertidores\ConvertidorDificultad.cs" />
-    <Compile Include="Convertidores\ConvertidorRespuesta.cs" />
+    <Compile Include="Convertidores\ConvertidorPista.cs" />
     <Compile Include="Servicios\ServicioAzureBlobStorage.cs" />
     <Compile Include="Servicios\ServicioDialogos.cs" />
     <Compile Include="Servicios\ServicioJson.cs" />

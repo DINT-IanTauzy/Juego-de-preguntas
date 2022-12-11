@@ -10,6 +10,7 @@
     <Window.Resources>
         <convertidores:ConvertidorDificultad x:Key="ConvertidorDificultad"/>
         <convertidores:ConvertidorCategoria x:Key="ConvertidorCategoria"/>
+        <convertidores:ConvertidorPista x:Key="ConvertidorPista"/>
         <Style TargetType="{x:Type Image}" x:Key="LogosDataTemplate">
             <Setter Property="Width" Value="40"/>
             <Setter Property="Height" Value="32"/>
@@ -87,7 +88,7 @@
                 <Border.Effect>
                     <DropShadowEffect/>
                 </Border.Effect>
-            <DockPanel Width="170" Height="170">
+            <DockPanel Width="180" Height="180">
                 <Viewbox DockPanel.Dock="Bottom" Height="25" Margin="5">
                     <TextBlock Text="{Binding Path=TextoPregunta}"/>
                 </Viewbox>
@@ -123,27 +124,27 @@
                         </Grid.ColumnDefinitions>
                         <DockPanel Grid.Row="0" Grid.Column="0">
                             <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
-                                <Image Name="Categoria"></Image>
-                                <TextBlock Text="Categoria" ></TextBlock>
+                                <TextBlock Text="Categoria" />
+                                <Image Name="Categoria" Source="{Binding Path=PreguntaActual.Categoria, Converter={StaticResource ConvertidorCategoria}}" Width="50" Height="50" HorizontalAlignment="Left"/>
                             </StackPanel>
                             <Image Name="PreguntaImagen" Source="{Binding Path=PreguntaActual.Imagen}"></Image>
                         </DockPanel>
                         <DockPanel  Grid.Row="1" Grid.Column="0" LastChildFill="False" >
-                            <TextBlock Text="{Binding Path=PreguntaActual.TextoPregunta}" DockPanel.Dock="Top"></TextBlock>
+                            <TextBlock Text="{Binding Path=PreguntaActual.TextoPregunta}" DockPanel.Dock="Top" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
                             <DockPanel DockPanel.Dock="Top" Margin="5">
                                 <TextBlock Text="Respuesta" DockPanel.Dock="Top"></TextBlock>
-                                <Button Content="Validar" DockPanel.Dock="Right"></Button>
+                                <Button Content="Validar" DockPanel.Dock="Right" Click="Validar_Click"></Button>
                                 <TextBox Margin="5,0"></TextBox>
                             </DockPanel>
                             <Expander Margin="10" Header="Ver pista/Ocultar pista..." >
-                                <TextBlock TextWrapping="Wrap" FontSize="15" Text="{Binding Path=PreguntaActual.Respuesta}"/>
+                                <TextBlock TextWrapping="Wrap" FontSize="20" Text="{Binding Path=PreguntaActual.Respuesta, Converter={StaticResource ConvertidorPista}}"/>
 
 
                             </Expander>
                         </DockPanel>
                         <DockPanel Grid.Row="0" Grid.Column="1">
-                            <GroupBox Header="Categorias Conseguidas">
-                                <Grid>
+                            <GroupBox Header="Categorias Conseguidas" Margin="10">
+                                <Grid >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
@@ -160,8 +161,8 @@
                             </GroupBox>
                         </DockPanel>
                         <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Grid.Row="1" Grid.Column="1" Margin="15">
-                            <ComboBox ItemsSource="{Binding Path=Dificultades}" SelectedItem="{Binding Path=NuevaPregunta.Dificultad}"/>
-                            <Button Content="Nueva Partida" Margin="20"></Button>
+                            <ComboBox ItemsSource="{Binding Path=Dificultades}" SelectedItem="{Binding Path=PreguntaActual.Dificultad}"/>
+                            <Button Content="Nueva Partida" Margin="20" Click="NuevaPartida_Click"/>
                         </StackPanel>
                     </Grid>
                 </TabItem>

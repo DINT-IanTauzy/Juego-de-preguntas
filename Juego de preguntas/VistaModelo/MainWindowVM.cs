@@ -79,7 +79,13 @@ namespace Juego_de_preguntas.VistaModelo
         }
 
 
+        private Partida partidaActual;
 
+        public Partida PartidaActual
+        {
+            get { return partidaActual; }
+            set { SetProperty(ref partidaActual, value); }
+        }
 
         private ServicioDialogos serviceDialog;
         public ServicioDialogos ServiceDialog { get => serviceDialog; set { SetProperty(ref serviceDialog, value); } }
@@ -142,6 +148,36 @@ namespace Juego_de_preguntas.VistaModelo
         {
             string ruta = ServiceDialog.SaveFileDialog();
             ServicioJson.EscrituraJSON(ruta, ListaPreguntas);
+        }
+
+        public void NuevaPartida()
+        {
+            if (ListaPreguntas.Count != 0)
+            {
+                PreguntaActual = new Pregunta();
+                Random semilla = new Random();
+                int n = semilla.Next(0, ListaPreguntas.Count);
+                 
+                for (int i = 0; i < ListaPreguntas.Count; i++)
+                {
+                    if (PreguntaActual.Dificultad == ListaPreguntas[i].Dificultad)
+                        PreguntaActual = ListaPreguntas[i];
+                }
+
+                if (PreguntaActual.Dificultad == null)
+                    PreguntaActual = ListaPreguntas[n];
+
+
+            }
+            else
+            {
+                serviceDialog.MostrarMensaje("No hay preguntas para poder empezar la partida");
+            }
+        }
+
+        public void Validar()
+        {
+
         }
 
         
