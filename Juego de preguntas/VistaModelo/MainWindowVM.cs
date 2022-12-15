@@ -14,16 +14,7 @@ namespace Juego_de_preguntas.VistaModelo
     {
 
         private const string noImage = "https://trivialian.blob.core.windows.net/trivial/no-image.png";
-        private Pregunta pregunta;
-
-        public Pregunta Pregunta
-        {
-            get => pregunta;
-            set
-            {
-                SetProperty(ref pregunta, value);
-            }
-        }
+        
 
         private Pregunta nuevaPregunta;
 
@@ -78,12 +69,12 @@ namespace Juego_de_preguntas.VistaModelo
             set { SetProperty(ref listaPreg_Nivel, value); }
         }
 
-        private ObservableCollection<Pregunta> listaPreg_Categoria;
+        private ObservableCollection<Pregunta> listaPreg_Partida;
 
-        public ObservableCollection<Pregunta> ListaPreg_Categoria
+        public ObservableCollection<Pregunta> ListaPreg_Partida
         {
-            get { return listaPreg_Categoria; }
-            set { SetProperty(ref listaPreg_Categoria, value); }
+            get { return listaPreg_Partida; }
+            set { SetProperty(ref listaPreg_Partida, value); }
         }
 
         private string respuestaUsu;
@@ -123,6 +114,36 @@ namespace Juego_de_preguntas.VistaModelo
 
         public ServicioJson ServicioJson { get => servicioJson; set { SetProperty(ref servicioJson, value); } }
 
+        private int posicionPreguntaPartida;
+
+        private bool categoria_Armas;
+        public bool Categoria_Armas
+        {
+            get { return categoria_Armas; }
+            set { SetProperty(ref categoria_Armas, value); }
+        }
+
+        private bool categoria_Mapas;
+        public bool Categoria_Mapas
+        {
+            get { return categoria_Mapas; }
+            set { SetProperty(ref categoria_Mapas, value); }
+        }
+
+        private bool categoria_Personajes;
+        public bool Categoria_Personajes
+        {
+            get { return categoria_Personajes; }
+            set { SetProperty(ref categoria_Personajes, value); }
+        }
+
+        private bool categoria_Habilidades;
+        public bool Categoria_Habilidades
+        {
+            get { return categoria_Habilidades; }
+            set { SetProperty(ref categoria_Habilidades, value); }
+        }
+
         public MainWindowVM()
         {
             PartidaActual = new Partida();
@@ -135,8 +156,9 @@ namespace Juego_de_preguntas.VistaModelo
             Dificultades = new ObservableCollection<string> { "Facil", "Medio", "Dificil" };
             NuevaPregunta = new Pregunta();
             ListaPreg_Nivel = new ObservableCollection<Pregunta>();
-            listaPreg_Categoria = new ObservableCollection<Pregunta>();
+            listaPreg_Partida = new ObservableCollection<Pregunta>();
             RespuestaUsu = "";
+
         }
 
         public void AñadirPregunta()
@@ -172,6 +194,13 @@ namespace Juego_de_preguntas.VistaModelo
         {
             ListaPreguntas = ServicioJson.LecturaJSON(ServiceDialog.OpenFileDialog());
         }
+        public void ReiniciarCategorias()
+        {
+            Categoria_Armas = false;
+            Categoria_Habilidades = false;
+            Categoria_Mapas = false;
+            Categoria_Personajes = false;
+        }
 
         public void GuardarJson()
         {
@@ -181,27 +210,18 @@ namespace Juego_de_preguntas.VistaModelo
 
         public void NuevaPartida()
         {
+            ReiniciarCategorias();
             if (ListaPreguntas.Count != 0)
             {
-
+                ListaPreg_Partida = new ObservableCollection<Pregunta>();
                 PreguntaActual = new Pregunta();
-                Random semilla = new Random();
-                int n = 0;
-
+                ListaPreg_Nivel.Clear();
 
                 FiltrarPreguntasDificultad(PartidaActual.DificultadPartida);
-                n = semilla.Next(0, ListaPreg_Nivel.Count);
-                PreguntaActual = ListaPreg_Nivel[n];
+                foreach (Pregunta item in ListaPreg_Nivel)
+                    ListaPreg_Partida.Add(item);
 
-
-                /*do
-                {
-                    n = semilla.Next(0, ListaPreguntas.Count);
-
-                    if (ListaPreguntas[n].Dificultad == PartidaActual.DificultadPartida)
-                        PreguntaActual = ListaPreguntas[n];
-
-                } while (PreguntaActual.Dificultad == null);*/
+                GeneraPregunta();
             }
             else
                 serviceDialog.MostrarMensaje("No hay preguntas para poder empezar la partida");
@@ -212,8 +232,41 @@ namespace Juego_de_preguntas.VistaModelo
         {
             if (RespuestaUsu == PreguntaActual.Respuesta)
             {
+                switch (PreguntaActual.Categoria)
+                {
+                    case "Habilidades":
+                        Categoria_Habilidades = true;
+                        break;
+                    case "Personajes":
+                        Categoria_Personajes = true;
+                        break;
+                    case "Mapas":
+                        Categoria_Mapas = true;
+                        break;
+                    case "Armas":
+                        Categoria_Armas = true;
+                        break;
+                }
+                ListaPreg_Partida.Remove(PreguntaActual);
 
+                if (Categoria_Armas && Categoria_Habilidades && Categoria_Mapas && Categoria_Personajes)
+                {
+                    serviceDialog.MostrarMensaje("Enhorabuena!! Has ganado");
+                    PreguntaActual = new Pregunta();
+                    RespuestaUsu = "";
+                }
+                else
+                   GeneraPregunta();
             }
+        }
+
+        public void GeneraPregunta()
+        {
+            RespuestaUsu = "";
+            Random semilla = new Random();
+            posicionPreguntaPartida = 0;
+            posicionPreguntaPartida = semilla.Next(0, ListaPreg_Partida.Count);
+            PreguntaActual = ListaPreg_Partida[posicionPreguntaPartida];
         }
 
         public void FiltrarPreguntasDificultad(string dificultad)
@@ -227,7 +280,7 @@ namespace Juego_de_preguntas.VistaModelo
             }
         }
 
-        public void FiltrarPreguntasCategoria(ObservableCollection<Pregunta> lista)
+        /*public void FiltrarPreguntasCategoria(ObservableCollection<Pregunta> lista)
         {
             /*foreach (Pregunta item in lista)
             {
@@ -236,8 +289,8 @@ namespace Juego_de_preguntas.VistaModelo
 
                 }
                 ListaPreg_Categoria.Add(item);
-            }*/
-        }
+            }
+        }*/
 
 
     }
