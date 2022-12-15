@@ -13,14 +13,19 @@ namespace Juego_de_preguntas.Modelo
         private Pregunta pregunta;
         public Pregunta Pregunta { get => pregunta; set => pregunta = value; }
 
-        public Partida() { }
+        
 
         private ObservableCollection<Pregunta> listaPreguntas;
 
-        public Partida(Pregunta pregunta)
+        private string dificultadPartida;
+
+        public string DificultadPartida
         {
-            Pregunta = pregunta;
+            get { return dificultadPartida; }
+            set { SetProperty(ref dificultadPartida, value); }
         }
+
+        public Partida() { }
 
 
     }

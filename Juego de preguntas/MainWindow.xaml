@@ -63,7 +63,7 @@
             <Setter Property="Width" Value="150"/>
             <Setter Property="Margin" Value="10,0,0,0"/>
         </Style>
-        <Style TargetType="{x:Type Button}">
+        <Style TargetType="{x:Type Button}" x:Key="Botones">
             <Setter Property="Width" Value="120"/>
             <Setter Property="Margin" Value="10,8"/>
             <Setter Property="Height" Value="25"/>
@@ -82,6 +82,10 @@
         </Style>
         <Style TargetType="{x:Type Image}" x:Key="ImagenesCategorias">
             <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <Style TargetType="{x:Type Button}" x:Key="ButtonNuevaPartida" BasedOn="{StaticResource Botones}">
+            
         </Style>
         <DataTemplate x:Key="plantillaPreguntas">
             <Border BorderBrush="Black" BorderThickness="2" Padding="10" Margin="5" Background="AliceBlue">
@@ -133,8 +137,8 @@
                             <TextBlock Text="{Binding Path=PreguntaActual.TextoPregunta}" DockPanel.Dock="Top" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
                             <DockPanel DockPanel.Dock="Top" Margin="5">
                                 <TextBlock Text="Respuesta" DockPanel.Dock="Top"></TextBlock>
-                                <Button Content="Validar" DockPanel.Dock="Right" Click="Validar_Click"></Button>
-                                <TextBox Margin="5,0"></TextBox>
+                                <Button Content="Validar" DockPanel.Dock="Right" Click="Validar_Click" Style="{StaticResource Botones}"/>
+                                <TextBox Margin="5,0" Text="{Binding Path=RespuestaUsu}"></TextBox>
                             </DockPanel>
                             <Expander Margin="10" Header="Ver pista/Ocultar pista..." >
                                 <TextBlock TextWrapping="Wrap" FontSize="20" Text="{Binding Path=PreguntaActual.Respuesta, Converter={StaticResource ConvertidorPista}}"/>
@@ -161,8 +165,8 @@
                             </GroupBox>
                         </DockPanel>
                         <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Grid.Row="1" Grid.Column="1" Margin="15">
-                            <ComboBox ItemsSource="{Binding Path=Dificultades}" SelectedItem="{Binding Path=PreguntaActual.Dificultad}"/>
-                            <Button Content="Nueva Partida" Margin="20" Click="NuevaPartida_Click"/>
+                            <ComboBox ItemsSource="{Binding Path=Dificultades}" SelectedItem="{Binding Path=PartidaActual.DificultadPartida}" x:Name="SeleccionDificultad"/>
+                            <Button Content="Nueva Partida" Margin="20" Click="NuevaPartida_Click" Style="{StaticResource ButtonNuevaPartida}"/>
                         </StackPanel>
                     </Grid>
                 </TabItem>
@@ -177,9 +181,9 @@
                         <Grid DockPanel.Dock="Right" Style="{StaticResource PanelesDerecha}" Background="#FFE8E8E0">
                             <Image Source="./Recursos/FondoForm/Phoenix.jpg" />
                             <DockPanel  LastChildFill="False" >
-                                <Button Content="Añadir Pregunta" DockPanel.Dock="Top" Click="AñadirPregunta_Click"></Button>
-                                <Button Content="Limpiar Formulario" DockPanel.Dock="Top" Click="LimpiarFormulario_Click"></Button>
-                                <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click" Tag="NuevaPregunta"></Button>
+                                <Button Content="Añadir Pregunta" DockPanel.Dock="Top" Click="AñadirPregunta_Click" Style="{StaticResource Botones}"/>
+                                <Button Content="Limpiar Formulario" DockPanel.Dock="Top" Click="LimpiarFormulario_Click" Style="{StaticResource Botones}"/>
+                                <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click" Tag="NuevaPregunta" Style="{StaticResource Botones}"/>
                             </DockPanel>
                         </Grid>
                         
@@ -232,10 +236,10 @@
                         <Grid DockPanel.Dock="Right" Style="{StaticResource PanelesDerecha}" Background="#FF0F1923">
                             <Image Source="./Recursos/FondoForm/astra.png" Stretch="Uniform"/>
                             <DockPanel LastChildFill="False">
-                                <Button Content="Cargar de JSON" DockPanel.Dock="Top" Click="CargarJson_Click"></Button>
-                                <Button Content="Guardar en JSON" DockPanel.Dock="Top" Click="GuardarJson_Click"></Button>
-                                <Button Content="Eliminar Pregunta" DockPanel.Dock="Top" Click="EliminarPregunta_Click"></Button>
-                                <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click" Tag="GestionarPregunta"></Button>
+                                <Button Content="Cargar de JSON" DockPanel.Dock="Top" Click="CargarJson_Click" Style="{StaticResource Botones}"/>
+                                <Button Content="Guardar en JSON" DockPanel.Dock="Top" Click="GuardarJson_Click" Style="{StaticResource Botones}"/>
+                                <Button Content="Eliminar Pregunta" DockPanel.Dock="Top" Click="EliminarPregunta_Click" Style="{StaticResource Botones}"/>
+                                <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click" Tag="GestionarPregunta" Style="{StaticResource Botones}"/>
                             </DockPanel>
                         </Grid>
                         

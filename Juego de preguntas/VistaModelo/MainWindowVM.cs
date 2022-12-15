@@ -70,6 +70,31 @@ namespace Juego_de_preguntas.VistaModelo
             set { SetProperty(ref listaPreguntas, value); }
         }
 
+        private ObservableCollection<Pregunta> listaPreg_Nivel;
+
+        public ObservableCollection<Pregunta> ListaPreg_Nivel
+        {
+            get { return listaPreg_Nivel; }
+            set { SetProperty(ref listaPreg_Nivel, value); }
+        }
+
+        private ObservableCollection<Pregunta> listaPreg_Categoria;
+
+        public ObservableCollection<Pregunta> ListaPreg_Categoria
+        {
+            get { return listaPreg_Categoria; }
+            set { SetProperty(ref listaPreg_Categoria, value); }
+        }
+
+        private string respuestaUsu;
+
+        public string RespuestaUsu
+        {
+            get { return respuestaUsu; }
+            set { SetProperty(ref respuestaUsu, value); }
+        }
+
+
         private Pregunta preguntaActual;
 
         public Pregunta PreguntaActual
@@ -100,6 +125,7 @@ namespace Juego_de_preguntas.VistaModelo
 
         public MainWindowVM()
         {
+            PartidaActual = new Partida();
             PreguntaActual = new Pregunta();
             ListaPreguntas = new ObservableCollection<Pregunta>();
             ServiceDialog = new ServicioDialogos();
@@ -108,6 +134,9 @@ namespace Juego_de_preguntas.VistaModelo
             Categorias = new ObservableCollection<string> { "Armas", "Personajes", "Habilidades", "Mapas" };
             Dificultades = new ObservableCollection<string> { "Facil", "Medio", "Dificil" };
             NuevaPregunta = new Pregunta();
+            ListaPreg_Nivel = new ObservableCollection<Pregunta>();
+            listaPreg_Categoria = new ObservableCollection<Pregunta>();
+            RespuestaUsu = "";
         }
 
         public void AñadirPregunta()
@@ -154,32 +183,62 @@ namespace Juego_de_preguntas.VistaModelo
         {
             if (ListaPreguntas.Count != 0)
             {
+
                 PreguntaActual = new Pregunta();
                 Random semilla = new Random();
-                int n = semilla.Next(0, ListaPreguntas.Count);
-                 
-                for (int i = 0; i < ListaPreguntas.Count; i++)
+                int n = 0;
+
+
+                FiltrarPreguntasDificultad(PartidaActual.DificultadPartida);
+                n = semilla.Next(0, ListaPreg_Nivel.Count);
+                PreguntaActual = ListaPreg_Nivel[n];
+
+
+                /*do
                 {
-                    if (PreguntaActual.Dificultad == ListaPreguntas[i].Dificultad)
-                        PreguntaActual = ListaPreguntas[i];
-                }
+                    n = semilla.Next(0, ListaPreguntas.Count);
 
-                if (PreguntaActual.Dificultad == null)
-                    PreguntaActual = ListaPreguntas[n];
+                    if (ListaPreguntas[n].Dificultad == PartidaActual.DificultadPartida)
+                        PreguntaActual = ListaPreguntas[n];
 
-
+                } while (PreguntaActual.Dificultad == null);*/
             }
             else
-            {
                 serviceDialog.MostrarMensaje("No hay preguntas para poder empezar la partida");
-            }
+
         }
 
         public void Validar()
         {
+            if (RespuestaUsu == PreguntaActual.Respuesta)
+            {
 
+            }
         }
 
-        
+        public void FiltrarPreguntasDificultad(string dificultad)
+        {
+            foreach (Pregunta item in ListaPreguntas)
+            {
+                if (item.Dificultad == dificultad)
+                {
+                    ListaPreg_Nivel.Add(item);
+                }
+            }
+        }
+
+        public void FiltrarPreguntasCategoria(ObservableCollection<Pregunta> lista)
+        {
+            /*foreach (Pregunta item in lista)
+            {
+                if (item.Categoria)
+                {
+
+                }
+                ListaPreg_Categoria.Add(item);
+            }*/
+        }
+
+
     }
 }
