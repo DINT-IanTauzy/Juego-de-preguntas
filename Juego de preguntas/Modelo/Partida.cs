@@ -10,12 +10,14 @@ namespace Juego_de_preguntas.Modelo
 {
     class Partida : ObservableObject
     {
-        private Pregunta pregunta;
-        public Pregunta Pregunta { get => pregunta; set => pregunta = value; }
+        private bool partidaEnJuego;
 
-        
+        public bool PartidaEnJuego
+        {
+            get { return partidaEnJuego; }
+            set { SetProperty(ref partidaEnJuego, value); }
+        }
 
-        private ObservableCollection<Pregunta> listaPreguntas;
 
         private string dificultadPartida;
 

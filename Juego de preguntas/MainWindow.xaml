@@ -81,9 +81,38 @@
             <Setter Property="Margin" Value="15"/>
         </Style>
         <Style TargetType="{x:Type Image}" x:Key="ImagenesCategorias">
-            <Setter Property="Margin" Value="10"/>
             <Setter Property="Opacity" Value="0.5"/>
-            
+        </Style>
+        <Style TargetType="{x:Type Border}" x:Key="BorderImagenesLevels">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PartidaActual.DificultadPartida}" Value="Facil">
+                    <Setter Property="BorderBrush" Value="LightGreen"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect ShadowDepth="0" Color="LightGreen" BlurRadius="10" ></DropShadowEffect>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=PartidaActual.DificultadPartida}" Value="Medio">
+                    <Setter Property="BorderBrush" Value="#FFFBDE59"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect ShadowDepth="0" Color="#FFFBDE59" BlurRadius="10" ></DropShadowEffect>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=PartidaActual.DificultadPartida}" Value="Dificil">
+                    <Setter Property="BorderBrush" Value="Red"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect ShadowDepth="0" Color="Red" BlurRadius="10" ></DropShadowEffect>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
 
         <Style TargetType="{x:Type Image}" x:Key="CategoriaArmas" BasedOn="{StaticResource ImagenesCategorias}">
@@ -91,13 +120,19 @@
                 <DataTrigger Binding="{Binding Path=Categoria_Armas}" Value="True">
                     <Setter Property="Opacity" Value="1"/>
                 </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Categoria_Armas}" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style TargetType="{x:Type Image}" x:Key="CategoriaMapas" BasedOn="{StaticResource ImagenesCategorias}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=Categoria_Mapas}" Value="True">
                     <Setter Property="Opacity" Value="1"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Categoria_Mapas}" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -107,6 +142,9 @@
                 <DataTrigger Binding="{Binding Path=Categoria_Personajes}" Value="True">
                     <Setter Property="Opacity" Value="1"/>
                 </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Categoria_Personajes}" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
 
@@ -115,35 +153,131 @@
                 <DataTrigger Binding="{Binding Path=Categoria_Habilidades}" Value="True">
                     <Setter Property="Opacity" Value="1"/>
                 </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Categoria_Habilidades}" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
 
-        <Style TargetType="{x:Type Button}" x:Key="ButtonNuevaPartida" BasedOn="{StaticResource Botones}">
-            
+        <Style TargetType="{x:Type Button}" x:Key="ButtonValidar" BasedOn="{StaticResource Botones}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=ListaPreg_Partida}" Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
+
+        <Style TargetType="{x:Type TextBlock}" x:Key="TextoCabecera">
+            <Setter Property="Foreground" Value="#f2636b"/>
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
+
+        <Style TargetType="{x:Type Border}" x:Key="BorderImages">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="{x:Type TabItem}" x:Key="PartidaEnJuego">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PartidaActual.PartidaEnJuego}" Value="False">
+                    <Setter Property="IsEnabled" Value="True"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=PartidaActual.PartidaEnJuego}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type Button}" x:Key="EliminarPregunta" BasedOn="{StaticResource Botones}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=PreguntaSeleccionada}" Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
         <DataTemplate x:Key="plantillaPreguntas">
             <Border BorderBrush="Black" BorderThickness="2" Padding="10" Margin="5" Background="AliceBlue">
                 <Border.Effect>
                     <DropShadowEffect/>
                 </Border.Effect>
-            <DockPanel Width="180" Height="180">
-                <Viewbox DockPanel.Dock="Bottom" Height="25" Margin="5">
-                    <TextBlock Text="{Binding Path=TextoPregunta}"/>
-                </Viewbox>
+                <DockPanel Width="180" Height="180">
+                    <Viewbox DockPanel.Dock="Bottom" Height="25" Margin="5">
+                        <TextBlock Text="{Binding Path=TextoPregunta}"/>
+                    </Viewbox>
                     <DockPanel LastChildFill="False" DockPanel.Dock="Top">
                         <Image DockPanel.Dock="Right" Source="{Binding Path=Dificultad, Converter={StaticResource ConvertidorDificultad}}" Style="{StaticResource Levels}"/>
                         <Image DockPanel.Dock="Left" Source="{Binding Path=Categoria, Converter={StaticResource ConvertidorCategoria}}" Style="{StaticResource Categorias}"/>
                     </DockPanel>
-                <Image Source="{Binding Path=Imagen}" HorizontalAlignment="Center" Margin="5"/>
-            </DockPanel>
+                    <Image Source="{Binding Path=Imagen}" HorizontalAlignment="Center" Margin="5"/>
+                </DockPanel>
             </Border>
         </DataTemplate>
+        
+        
 
+        <ControlTemplate x:Key="Button_Template" TargetType="{x:Type Button}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="5" Width="120" Height="25">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsDefaulted" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFFD9D9D"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="White"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect ShadowDepth="0" Color="#f94555" BlurRadius="20"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
         
-        
+        <ControlTemplate x:Key="TextBox_Template" TargetType="{x:Type TextBox}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF4654"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect ShadowDepth="0" Color="#FF4654" BlurRadius="10" ></DropShadowEffect>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+
+
     </Window.Resources>
     <Grid>
-        <Grid>
+        <Grid >
             <TabControl>
                 <TabItem>
                     <TabItem.Header>
@@ -151,7 +285,7 @@
                             <TextBlock Text="Jugar"/>
                         </StackPanel>
                     </TabItem.Header>
-                    <Grid>
+                    <Grid Background="#FF0F1923">
                         <Grid.RowDefinitions >
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="210"></RowDefinition>
@@ -161,32 +295,35 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <DockPanel Grid.Row="0" Grid.Column="0" Margin="10">
-                            <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="5">
-                                <TextBlock Text="Categoria" FontWeight="Bold" FontSize="15"/>
-                                <Image Name="Categoria" Source="{Binding Path=PreguntaActual.Categoria, Converter={StaticResource ConvertidorCategoria}}" Width="50" Height="50" HorizontalAlignment="Left" Margin="5"/>
+                            <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="5" HorizontalAlignment="Left">
+                                <TextBlock Text="Categoria" Style="{StaticResource TextoCabecera}"/>
+                                <Border Style="{StaticResource BorderImages}" Background="#FFD3D3D0">
+                                    <Image Name="Categoria" Source="{Binding Path=PreguntaActual.Categoria, Converter={StaticResource ConvertidorCategoria}}" Width="50" Height="50" />
+                                </Border>
+
                             </StackPanel>
-                            <Border BorderBrush="Black" BorderThickness="1" Margin="5">
-                                <Image Name="PreguntaImagen" Source="{Binding Path=PreguntaActual.Imagen}"/>
+                            <Border Style="{StaticResource BorderImages}" Background="White">
+                                <Image Name="PreguntaImagen" Source="{Binding Path=PreguntaActual.Imagen}" Stretch="Fill"/>
                             </Border>
-                            
+
                         </DockPanel>
-                        <Border  Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Margin="10" >
-                            <DockPanel >
-                                <TextBlock Text="{Binding Path=PreguntaActual.TextoPregunta}" DockPanel.Dock="Top" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="5"/>
+                        <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource BorderButton}" >
+                            <DockPanel>
+                                <TextBlock Text="{Binding Path=PreguntaActual.TextoPregunta}" DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="5"/>
                                 <DockPanel DockPanel.Dock="Top" Margin="5">
                                     <TextBlock Text="Respuesta" DockPanel.Dock="Top" Margin="5,0"/>
-                                    <Button Content="Validar" DockPanel.Dock="Right" Click="Validar_Click" Style="{StaticResource Botones}"/>
+                                    <Button Content="Validar" DockPanel.Dock="Right" Click="Validar_Click" Style="{StaticResource ButtonValidar}"/>
                                     <TextBox Margin="5,0" Text="{Binding Path=RespuestaUsu}"/>
                                 </DockPanel>
                                 <Expander Margin="10,5" Header="Ver pista/Ocultar pista..." >
                                     <TextBlock TextWrapping="Wrap" FontSize="20" Text="{Binding Path=PreguntaActual.Respuesta, Converter={StaticResource ConvertidorPista}}"/>
                                 </Expander>
                             </DockPanel>
-                            
+
                         </Border>
                         <DockPanel Grid.Row="0" Grid.Column="1">
-                            <GroupBox Header="Categorias Conseguidas" FontSize="15" FontWeight="Bold" Margin="10">
-                                <Grid >
+                            <GroupBox Header="Categorias Conseguidas" FontSize="15" Margin="10" Foreground="#f2636b">
+                                <Grid Background="White">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
@@ -195,26 +332,38 @@
                                         <RowDefinition></RowDefinition>
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <Image Source="./Recursos/Categorias/armas.png" Grid.Row="0" Grid.Column="0" Style="{StaticResource CategoriaArmas}"/>
-                                    <Image Source="./Recursos/Categorias/habilidades.png" Grid.Row="0" Grid.Column="1" Style="{StaticResource CategoriaHabilidades}"/>
-                                    <Image Source="./Recursos/Categorias/mapa.png" Grid.Row="1" Grid.Column="0" Style="{StaticResource CategoriaMapas}"/>
-                                    <Image Source="./Recursos/Categorias/personajes.png" Grid.Row="1" Grid.Column="1" Style="{StaticResource CategoriaPersonajes}"/>
+                                    <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource BorderImagenesLevels}">
+                                        <Image Source="./Recursos/Categorias/armas.png"  Style="{StaticResource CategoriaArmas}"/>
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource BorderImagenesLevels}">
+                                        <Image Source="./Recursos/Categorias/habilidades.png"  Style="{StaticResource CategoriaHabilidades}"/>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource BorderImagenesLevels}">
+                                        <Image Source="./Recursos/Categorias/mapa.png"  Style="{StaticResource CategoriaMapas}"/>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource BorderImagenesLevels}">
+                                        <Image Source="./Recursos/Categorias/personajes.png"  Style="{StaticResource CategoriaPersonajes}"/>
+                                    </Border>
+                                    
+                                    
+                                    
+                                    
                                 </Grid>
                             </GroupBox>
                         </DockPanel>
                         <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Grid.Row="1" Grid.Column="1" Margin="15" VerticalAlignment="Center">
                             <ComboBox ItemsSource="{Binding Path=Dificultades}" SelectedItem="{Binding Path=PartidaActual.DificultadPartida}" x:Name="SeleccionDificultad"/>
-                            <Button Content="Nueva Partida" Margin="20" Click="NuevaPartida_Click" Style="{StaticResource ButtonNuevaPartida}"/>
+                            <Button Content="Nueva Partida" Margin="20" Click="NuevaPartida_Click" Style="{StaticResource Botones}" Template="{DynamicResource Button_Template}"/>
                         </StackPanel>
                     </Grid>
                 </TabItem>
-                <TabItem>
+                <TabItem Style="{StaticResource PartidaEnJuego}">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Añadir Pregunta" />
                         </StackPanel>
                     </TabItem.Header>
-                    <DockPanel>
+                    <DockPanel Background="#FF0F1923">
                         <!--Lado derecho-->
                         <Grid DockPanel.Dock="Right" Style="{StaticResource PanelesDerecha}" Background="#FFE8E8E0">
                             <Image Source="./Recursos/FondoForm/Phoenix.jpg" />
@@ -224,63 +373,63 @@
                                 <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click" Tag="NuevaPregunta" Style="{StaticResource Botones}"/>
                             </DockPanel>
                         </Grid>
-                        
+
                         <!--Parte de abajo-->
                         <Border DockPanel.Dock="Bottom" Style="{StaticResource BorderButton}">
                             <DockPanel LastChildFill="False">
 
-                            <DockPanel DockPanel.Dock="Bottom" Margin="15" HorizontalAlignment="Center">
-                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                                    <TextBlock Text="Nivel de dificultad"/>
-                                    <ComboBox  ItemsSource="{Binding Path=Dificultades}" SelectedItem="{Binding Path=NuevaPregunta.Dificultad}"/>
+                                <DockPanel DockPanel.Dock="Bottom" Margin="15" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                                        <TextBlock Text="Nivel de dificultad"/>
+                                        <ComboBox  ItemsSource="{Binding Path=Dificultades}" SelectedItem="{Binding Path=NuevaPregunta.Dificultad}"/>
                                     </StackPanel>
-                                <StackPanel DockPanel.Dock="Right" Margin="50,0,0,0" Orientation="Horizontal">
-                                    <TextBlock Text="Categoria"/>
-                                    <ComboBox  ItemsSource="{Binding Path=Categorias}" SelectedItem="{Binding Path=NuevaPregunta.Categoria}"/>
+                                    <StackPanel DockPanel.Dock="Right" Margin="50,0,0,0" Orientation="Horizontal">
+                                        <TextBlock Text="Categoria"/>
+                                        <ComboBox  ItemsSource="{Binding Path=Categorias}" SelectedItem="{Binding Path=NuevaPregunta.Categoria}"/>
+                                    </StackPanel>
+                                </DockPanel>
+
+
+                                <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
+                                    <DockPanel Style="{StaticResource AddPregunta_TresTextBox}">
+                                        <Label Content="Pregunta" DockPanel.Dock="Left"/>
+                                        <TextBox Text="{Binding Path=NuevaPregunta.TextoPregunta}" Template="{DynamicResource TextBox_Template}"/>
+                                    </DockPanel>
+                                    <DockPanel Style="{StaticResource AddPregunta_TresTextBox}">
+                                        <Label Content="Respuesta" DockPanel.Dock="Left"/>
+                                        <TextBox Text="{Binding Path=NuevaPregunta.Respuesta}" Template="{StaticResource TextBox_Template}"/>
+                                    </DockPanel>
+                                    <DockPanel Style="{StaticResource AddPregunta_TresTextBox}">
+                                        <Label Content="Imagen" DockPanel.Dock="Left"/>
+                                        <TextBox Text="{Binding Path=NuevaPregunta.Imagen}" IsReadOnly="True" Template="{StaticResource TextBox_Template}"/>
+                                    </DockPanel>
                                 </StackPanel>
+
                             </DockPanel>
-                        
-                        
-                        <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
-                            <DockPanel Style="{StaticResource AddPregunta_TresTextBox}">
-                                <Label Content="Pregunta" DockPanel.Dock="Left"/>
-                                <TextBox Text="{Binding Path=NuevaPregunta.TextoPregunta}"/>
-                            </DockPanel>
-                            <DockPanel Style="{StaticResource AddPregunta_TresTextBox}">
-                                <Label Content="Respuesta" DockPanel.Dock="Left"/>
-                                <TextBox Text="{Binding Path=NuevaPregunta.Respuesta}"/>
-                            </DockPanel>
-                            <DockPanel Style="{StaticResource AddPregunta_TresTextBox}">
-                                <Label Content="Imagen" DockPanel.Dock="Left"/>
-                                <TextBox Text="{Binding Path=NuevaPregunta.Imagen}" IsReadOnly="True"/>
-                            </DockPanel>
-                        </StackPanel>
-                            
-                        </DockPanel>
                         </Border>
-                        <Border BorderBrush="Black" BorderThickness="1" Margin="15">
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="15" Background="White">
                             <Image Source="{Binding Path=NuevaPregunta.Imagen}"/>
                         </Border>
-                        
+
                     </DockPanel>
                 </TabItem>
-                <TabItem>
+                <TabItem Style="{StaticResource PartidaEnJuego}">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Gestionar Preguntas" />
                         </StackPanel>
                     </TabItem.Header>
-                    <DockPanel>
+                    <DockPanel Background="#FF0F1923">
                         <Grid DockPanel.Dock="Right" Style="{StaticResource PanelesDerecha}" Background="#FF0F1923">
                             <Image Source="./Recursos/FondoForm/astra.png" Stretch="Uniform"/>
                             <DockPanel LastChildFill="False">
                                 <Button Content="Cargar de JSON" DockPanel.Dock="Top" Click="CargarJson_Click" Style="{StaticResource Botones}"/>
                                 <Button Content="Guardar en JSON" DockPanel.Dock="Top" Click="GuardarJson_Click" Style="{StaticResource Botones}"/>
-                                <Button Content="Eliminar Pregunta" DockPanel.Dock="Top" Click="EliminarPregunta_Click" Style="{StaticResource Botones}"/>
+                                <Button Content="Eliminar Pregunta" DockPanel.Dock="Top" Click="EliminarPregunta_Click" Style="{StaticResource EliminarPregunta}"/>
                                 <Button Content="Examinar" DockPanel.Dock="Bottom" Click="Examinar_Click" Tag="GestionarPregunta" Style="{StaticResource Botones}"/>
                             </DockPanel>
                         </Grid>
-                        
+
                         <Border DockPanel.Dock="Bottom" Style="{StaticResource BorderButton}">
                             <DockPanel LastChildFill="False">
                                 <DockPanel DockPanel.Dock="Bottom" LastChildFill="False" HorizontalAlignment="Center" Margin="15">
@@ -296,22 +445,19 @@
                                 <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
                                     <DockPanel DockPanel.Dock="Top" Style="{StaticResource AddPregunta_TresTextBox}">
                                         <Label Content="Pregunta" DockPanel.Dock="Left"/>
-                                        <TextBox Text="{Binding Path=PreguntaSeleccionada.TextoPregunta , UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBox Text="{Binding Path=PreguntaSeleccionada.TextoPregunta , UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource TextBox_Template}"/>
                                     </DockPanel>
                                     <DockPanel DockPanel.Dock="Top" Style="{StaticResource AddPregunta_TresTextBox}">
                                         <Label Content="Respuesta" DockPanel.Dock="Left"/>
-                                        <TextBox Text="{Binding Path=PreguntaSeleccionada.Respuesta, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBox Text="{Binding Path=PreguntaSeleccionada.Respuesta, UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource TextBox_Template}"/>
                                     </DockPanel>
                                     <DockPanel DockPanel.Dock="Top" Style="{StaticResource AddPregunta_TresTextBox}">
                                         <Label Content="Imagen" DockPanel.Dock="Left"/>
-                                        <TextBox Text="{Binding Path=PreguntaSeleccionada.Imagen, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                                        <TextBox Text="{Binding Path=PreguntaSeleccionada.Imagen, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Template="{StaticResource TextBox_Template}"/>
                                     </DockPanel>
                                 </StackPanel>
                             </DockPanel>
                         </Border>
-                        
-                        
-                        
                         <ListBox Margin="20" ItemsSource="{Binding Path=ListaPreguntas}" SelectedItem="{Binding Path=PreguntaSeleccionada}" ItemTemplate="{StaticResource plantillaPreguntas}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>

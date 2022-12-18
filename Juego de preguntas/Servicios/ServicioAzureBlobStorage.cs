@@ -15,19 +15,21 @@ namespace Juego_de_preguntas.Servicios
         
         public string AlmacenarImagenEnLaNube(string rutaImagen)
         {
-            var clienteBlobService = new BlobServiceClient(cadenaConexion);
-            var clienteContenedor = clienteBlobService.GetBlobContainerClient(nombreContenedorBlobs);
+            if (rutaImagen != "")
+            {
+                var clienteBlobService = new BlobServiceClient(cadenaConexion);
+                var clienteContenedor = clienteBlobService.GetBlobContainerClient(nombreContenedorBlobs);
 
-            Stream streamImagen = File.OpenRead(rutaImagen);
-            string nombreImagen = Path.GetFileName(rutaImagen);
+                Stream streamImagen = File.OpenRead(rutaImagen);
+                string nombreImagen = Path.GetFileName(rutaImagen);
 
-            if (!clienteContenedor.GetBlobClient(nombreImagen).Exists())
-                clienteContenedor.UploadBlob(nombreImagen, streamImagen);
-            
+                if (!clienteContenedor.GetBlobClient(nombreImagen).Exists())
+                    clienteContenedor.UploadBlob(nombreImagen, streamImagen);
 
-            var clienteBlobImagen = clienteContenedor.GetBlobClient(nombreImagen);
-            return clienteBlobImagen.Uri.AbsoluteUri;
-
+                var clienteBlobImagen = clienteContenedor.GetBlobClient(nombreImagen);
+                return clienteBlobImagen.Uri.AbsoluteUri;
+            }
+            else return "";
 
         }
     }

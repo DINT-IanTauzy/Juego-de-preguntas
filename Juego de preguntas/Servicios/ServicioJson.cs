@@ -15,14 +15,28 @@ namespace Juego_de_preguntas.Servicios
         public void EscrituraJSON(string ruta, ObservableCollection<Pregunta> lista)
         {
             string preguntaJson = JsonConvert.SerializeObject(lista);
-            File.WriteAllText(ruta, preguntaJson);
-            //return preguntaJson;
+            try
+            {
+                File.WriteAllText(ruta, preguntaJson);
+            }
+            catch (ArgumentException)
+            {
+            }
+
         }
 
 
         public ObservableCollection<Pregunta> LecturaJSON(string ruta)
         {
-            string preguntaJson = File.ReadAllText(ruta);
+            string preguntaJson = "";
+            try
+            {
+                preguntaJson = File.ReadAllText(ruta);
+            }
+            catch (ArgumentException)
+            {  
+            }
+            
             return JsonConvert.DeserializeObject<ObservableCollection<Pregunta>>(preguntaJson);
         }
     }
