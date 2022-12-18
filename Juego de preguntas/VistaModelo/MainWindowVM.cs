@@ -158,7 +158,7 @@ namespace Juego_de_preguntas.VistaModelo
             ListaPreg_Nivel = new ObservableCollection<Pregunta>();
             listaPreg_Partida = new ObservableCollection<Pregunta>();
             RespuestaUsu = "";
-
+            PartidaActual.DificultadPartida = "Facil";
         }
 
         public void AñadirPregunta()
@@ -216,6 +216,7 @@ namespace Juego_de_preguntas.VistaModelo
                 ListaPreg_Partida = new ObservableCollection<Pregunta>();
                 PreguntaActual = new Pregunta();
                 ListaPreg_Nivel.Clear();
+                
 
                 FiltrarPreguntasDificultad(PartidaActual.DificultadPartida);
                 foreach (Pregunta item in ListaPreg_Nivel)
@@ -224,7 +225,7 @@ namespace Juego_de_preguntas.VistaModelo
                 GeneraPregunta();
             }
             else
-                serviceDialog.MostrarMensaje("No hay preguntas para poder empezar la partida");
+                serviceDialog.MostrarMensaje("No hay preguntas para poder empezar la partida", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
 
         }
 
@@ -251,7 +252,7 @@ namespace Juego_de_preguntas.VistaModelo
 
                 if (Categoria_Armas && Categoria_Habilidades && Categoria_Mapas && Categoria_Personajes)
                 {
-                    serviceDialog.MostrarMensaje("Enhorabuena!! Has ganado");
+                    serviceDialog.MostrarMensaje("Enhorabuena!! Has ganado","WIN!!",System.Windows.MessageBoxButton.OK,System.Windows.MessageBoxImage.Information);
                     PreguntaActual = new Pregunta();
                     RespuestaUsu = "";
                 }

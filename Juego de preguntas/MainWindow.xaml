@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Juego_de_preguntas"
         xmlns:convertidores="clr-namespace:Juego_de_preguntas.Convertidores"
         mc:Ignorable="d"
-        Title="Juego de Preguntas" Height="700" Width="1000" Icon="./Recursos/Icon/valorant.ico">
+        Title="Juego de Preguntas" Height="700" Width="1050" MinHeight="650" MinWidth="1000" Icon="./Recursos/Icon/valorant.ico">
     <Window.Resources>
         <convertidores:ConvertidorDificultad x:Key="ConvertidorDificultad"/>
         <convertidores:ConvertidorCategoria x:Key="ConvertidorCategoria"/>
@@ -82,6 +82,40 @@
         </Style>
         <Style TargetType="{x:Type Image}" x:Key="ImagenesCategorias">
             <Setter Property="Margin" Value="10"/>
+            <Setter Property="Opacity" Value="0.5"/>
+            
+        </Style>
+
+        <Style TargetType="{x:Type Image}" x:Key="CategoriaArmas" BasedOn="{StaticResource ImagenesCategorias}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Categoria_Armas}" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="{x:Type Image}" x:Key="CategoriaMapas" BasedOn="{StaticResource ImagenesCategorias}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Categoria_Mapas}" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type Image}" x:Key="CategoriaPersonajes" BasedOn="{StaticResource ImagenesCategorias}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Categoria_Personajes}" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type Image}" x:Key="CategoriaHabilidades" BasedOn="{StaticResource ImagenesCategorias}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Categoria_Habilidades}" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
 
         <Style TargetType="{x:Type Button}" x:Key="ButtonNuevaPartida" BasedOn="{StaticResource Botones}">
@@ -120,34 +154,38 @@
                     <Grid>
                         <Grid.RowDefinitions >
                             <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="180"></RowDefinition>
+                            <RowDefinition Height="210"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <DockPanel Grid.Row="0" Grid.Column="0">
-                            <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
-                                <TextBlock Text="Categoria" />
-                                <Image Name="Categoria" Source="{Binding Path=PreguntaActual.Categoria, Converter={StaticResource ConvertidorCategoria}}" Width="50" Height="50" HorizontalAlignment="Left"/>
+                        <DockPanel Grid.Row="0" Grid.Column="0" Margin="10">
+                            <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="5">
+                                <TextBlock Text="Categoria" FontWeight="Bold" FontSize="15"/>
+                                <Image Name="Categoria" Source="{Binding Path=PreguntaActual.Categoria, Converter={StaticResource ConvertidorCategoria}}" Width="50" Height="50" HorizontalAlignment="Left" Margin="5"/>
                             </StackPanel>
-                            <Image Name="PreguntaImagen" Source="{Binding Path=PreguntaActual.Imagen}"></Image>
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                                <Image Name="PreguntaImagen" Source="{Binding Path=PreguntaActual.Imagen}"/>
+                            </Border>
+                            
                         </DockPanel>
-                        <DockPanel  Grid.Row="1" Grid.Column="0" LastChildFill="False" >
-                            <TextBlock Text="{Binding Path=PreguntaActual.TextoPregunta}" DockPanel.Dock="Top" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <DockPanel DockPanel.Dock="Top" Margin="5">
-                                <TextBlock Text="Respuesta" DockPanel.Dock="Top"></TextBlock>
-                                <Button Content="Validar" DockPanel.Dock="Right" Click="Validar_Click" Style="{StaticResource Botones}"/>
-                                <TextBox Margin="5,0" Text="{Binding Path=RespuestaUsu}"></TextBox>
+                        <Border  Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Margin="10" >
+                            <DockPanel >
+                                <TextBlock Text="{Binding Path=PreguntaActual.TextoPregunta}" DockPanel.Dock="Top" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="5"/>
+                                <DockPanel DockPanel.Dock="Top" Margin="5">
+                                    <TextBlock Text="Respuesta" DockPanel.Dock="Top" Margin="5,0"/>
+                                    <Button Content="Validar" DockPanel.Dock="Right" Click="Validar_Click" Style="{StaticResource Botones}"/>
+                                    <TextBox Margin="5,0" Text="{Binding Path=RespuestaUsu}"/>
+                                </DockPanel>
+                                <Expander Margin="10,5" Header="Ver pista/Ocultar pista..." >
+                                    <TextBlock TextWrapping="Wrap" FontSize="20" Text="{Binding Path=PreguntaActual.Respuesta, Converter={StaticResource ConvertidorPista}}"/>
+                                </Expander>
                             </DockPanel>
-                            <Expander Margin="10" Header="Ver pista/Ocultar pista..." >
-                                <TextBlock TextWrapping="Wrap" FontSize="20" Text="{Binding Path=PreguntaActual.Respuesta, Converter={StaticResource ConvertidorPista}}"/>
-
-
-                            </Expander>
-                        </DockPanel>
+                            
+                        </Border>
                         <DockPanel Grid.Row="0" Grid.Column="1">
-                            <GroupBox Header="Categorias Conseguidas" Margin="10">
+                            <GroupBox Header="Categorias Conseguidas" FontSize="15" FontWeight="Bold" Margin="10">
                                 <Grid >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition></ColumnDefinition>
@@ -157,14 +195,14 @@
                                         <RowDefinition></RowDefinition>
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <Image Source="./Recursos/Categorias/armas.png" Grid.Row="0" Grid.Column="0" Style="{StaticResource ImagenesCategorias}"/>
-                                    <Image Source="./Recursos/Categorias/habilidades.png" Grid.Row="0" Grid.Column="1" Style="{StaticResource ImagenesCategorias}"/>
-                                    <Image Source="./Recursos/Categorias/mapa.png" Grid.Row="1" Grid.Column="0" Style="{StaticResource ImagenesCategorias}"/>
-                                    <Image Source="./Recursos/Categorias/personajes.png" Grid.Row="1" Grid.Column="1" Style="{StaticResource ImagenesCategorias}"/>
+                                    <Image Source="./Recursos/Categorias/armas.png" Grid.Row="0" Grid.Column="0" Style="{StaticResource CategoriaArmas}"/>
+                                    <Image Source="./Recursos/Categorias/habilidades.png" Grid.Row="0" Grid.Column="1" Style="{StaticResource CategoriaHabilidades}"/>
+                                    <Image Source="./Recursos/Categorias/mapa.png" Grid.Row="1" Grid.Column="0" Style="{StaticResource CategoriaMapas}"/>
+                                    <Image Source="./Recursos/Categorias/personajes.png" Grid.Row="1" Grid.Column="1" Style="{StaticResource CategoriaPersonajes}"/>
                                 </Grid>
                             </GroupBox>
                         </DockPanel>
-                        <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Grid.Row="1" Grid.Column="1" Margin="15">
+                        <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Grid.Row="1" Grid.Column="1" Margin="15" VerticalAlignment="Center">
                             <ComboBox ItemsSource="{Binding Path=Dificultades}" SelectedItem="{Binding Path=PartidaActual.DificultadPartida}" x:Name="SeleccionDificultad"/>
                             <Button Content="Nueva Partida" Margin="20" Click="NuevaPartida_Click" Style="{StaticResource ButtonNuevaPartida}"/>
                         </StackPanel>

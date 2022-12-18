@@ -11,9 +11,9 @@ namespace Juego_de_preguntas.Servicios
 {
     class ServicioDialogos
     {
-        public void MostrarMensaje(string mensaje)
+        public void MostrarMensaje(string mensaje,string titulo,MessageBoxButton button, MessageBoxImage image)
         {
-            MessageBox.Show(mensaje);
+            MessageBox.Show(mensaje, titulo, button,image);
         }
 
         public string OpenFileDialog()
